@@ -1,0 +1,27 @@
+alias: Bedroom AC off delay
+description: >
+  Automation to delay turning off the bedroom AC for 2 hours after the button is
+  pressed.
+trigger:
+  - platform: state
+    entity_id:
+      - input_button.bedroom_ac_delay_off_button
+condition: []
+action:
+  - service: notify.notify
+    metadata: {}
+    data:
+      message: >-
+        The bedroom air conditioner has been scheduled to turn off automatically
+        2 hours from now
+      title: Automatic AC turnoff scheduled
+  - delay:
+      hours: 2
+      minutes: 0
+      seconds: 0
+      milliseconds: 0
+  - service: scene.turn_on
+    metadata: {}
+    target:
+      entity_id: scene.bedroom_ac_off
+mode: single
